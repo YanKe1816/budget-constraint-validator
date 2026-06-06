@@ -7,7 +7,7 @@ JSONRPC_VERSION = "2.0"
 PROTOCOL_VERSION = "2024-11-05"
 APP_NAME = "Budget Constraint Validator"
 SUPPORT_EMAIL = "sidcraigau@gmail.com"
-EFFECTIVE_DATE = "2026-05-18"
+EFFECTIVE_DATE = "2026-06-06"
 SERVER_INFO = {
     "name": "budget-constraint-validator-mcp",
     "version": "0.1.0",
