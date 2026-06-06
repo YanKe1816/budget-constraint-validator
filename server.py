@@ -224,23 +224,65 @@ def privacy_html():
         f"{APP_NAME} Privacy",
         f"""
         <div class="eyebrow">Privacy Policy</div>
-        <h1>{APP_NAME}</h1>
+        <h1>Privacy Policy for {APP_NAME}</h1>
         <p>Effective date / last updated: {EFFECTIVE_DATE}</p>
-        <p>This app only processes the budget numbers and allocation items provided in the current request.</p>
-        <h2>What data is processed</h2>
-        <p>The app processes the provided <code>total_budget</code> value and the provided allocation item names and amounts.</p>
-        <h2>Data source</h2>
-        <p>The source of data is the current request submitted by the user or connected client.</p>
-        <h2>Purpose of processing</h2>
-        <p>The app uses the submitted numbers only to validate whether provided allocation amounts exceed the provided total budget.</p>
-        <h2>Storage and sharing</h2>
-        <p>This app does not store long-term user data, does not sell user data, and does not share user data with third parties for advertising.</p>
-        <h2>External systems and authentication</h2>
-        <p>This app does not require login, does not use authentication, and does not access external APIs or external systems.</p>
-        <h2>Write actions</h2>
-        <p>This app is read-only and deterministic. It does not perform write actions, real money transfers, or real budget allocation.</p>
-        <h2>Privacy requests</h2>
-        <p>For privacy or data requests, contact <a href="mailto:{SUPPORT_EMAIL}">{SUPPORT_EMAIL}</a>.</p>
+        <h2>1. Data Collected</h2>
+        <p>{APP_NAME} processes only the data submitted by the user in the current request.</p>
+        <p>The expected tool inputs are:</p>
+        <ul>
+          <li><code>total_budget</code>: a non-negative number representing the total available budget.</li>
+          <li><code>allocations</code>: an array of allocation items.</li>
+          <li><code>allocations[].name</code>: the name of an allocation item.</li>
+          <li><code>allocations[].amount</code>: a non-negative number representing the allocation amount.</li>
+        </ul>
+        <p>The app does not collect data from external sources, does not scrape websites, and does not fetch additional data.</p>
+        <p>The app does not access user accounts, files, databases, browsing history, contacts, calendars, emails, payment systems, bank accounts, or third-party services.</p>
+
+        <h2>2. Tool Outputs</h2>
+        <p>{APP_NAME} may return the following structured fields:</p>
+        <ul>
+          <li><code>is_valid</code>: whether the allocation is within the total budget.</li>
+          <li><code>total_budget</code>: the total budget submitted by the user.</li>
+          <li><code>total_allocated</code>: the sum of all allocation amounts.</li>
+          <li><code>remaining</code>: the remaining budget amount when allocations are within the budget.</li>
+          <li><code>overflow</code>: the amount by which allocations exceed the budget.</li>
+          <li><code>status</code>: a status value such as valid, over_budget, or error.</li>
+          <li><code>error</code>: an error object or null.</li>
+        </ul>
+        <p>These outputs are generated only from the user-provided input.</p>
+
+        <h2>3. Purpose of Processing</h2>
+        <p>The submitted data is used only to validate whether the provided allocation amounts exceed the provided total budget.</p>
+        <p>The app performs deterministic arithmetic validation only.</p>
+        <p>The app does not use submitted data for marketing, advertising, profiling, analytics-based targeting, model training by the app provider, budget recommendations, financial advice, investment advice, or unrelated purposes.</p>
+
+        <h2>4. Recipients and Sharing</h2>
+        <p>The app does not sell user data.</p>
+        <p>The app does not intentionally share submitted inputs or generated outputs with third-party recipients.</p>
+        <p>The app does not call external APIs.</p>
+        <p>The app does not send data to downstream systems.</p>
+        <p>The app does not contact banks, payment providers, customers, vendors, financial institutions, or other external parties.</p>
+        <p>The app does not update tickets, orders, invoices, databases, calendars, email systems, payment systems, budgeting systems, accounting systems, or other external systems.</p>
+
+        <h2>5. Retention</h2>
+        <p>The app is designed to be stateless.</p>
+        <p>The app does not store submitted inputs or generated outputs after request processing is complete, aside from transient platform-level request handling and logs needed to operate and debug the service.</p>
+        <p>The app does not maintain persistent records of user budget inputs, allocation names, allocation amounts, validation results, or errors.</p>
+
+        <h2>6. User Controls</h2>
+        <p>Users control what they submit to the app.</p>
+        <p>Users should avoid submitting sensitive, confidential, or unnecessary personal data.</p>
+        <p>Users may remove or replace sensitive allocation names before submitting a request.</p>
+        <p>Users may submit generic labels such as A, B, Marketing, Operations, or Tools instead of real internal budget labels.</p>
+        <p>Privacy questions or deletion requests can be sent to the support email listed on the Support page: <a href="mailto:{SUPPORT_EMAIL}">{SUPPORT_EMAIL}</a>.</p>
+
+        <h2>7. Login and Accounts</h2>
+        <p>The app does not require user accounts, authentication, login credentials, or user registration.</p>
+
+        <h2>8. Read-Only Operation and No Side Effects</h2>
+        <p>The app is read-only.</p>
+        <p>The app does not modify records, send messages, make decisions on behalf of users, contact external parties, trigger workflows, submit forms, transfer money, create financial transactions, or update any external system.</p>
+        <p>The app only returns a validation result based on the numbers provided in the current request.</p>
         {nav_html()}
         """,
     )

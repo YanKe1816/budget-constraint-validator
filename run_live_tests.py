@@ -127,8 +127,27 @@ def main():
         privacy_status, privacy_body, privacy_headers = http_get("/privacy")
         assert privacy_status == 200
         assert "text/html" in privacy_headers.get("Content-Type", "")
-        assert "does not require login" in privacy_body
-        assert "does not access external APIs" in privacy_body
+        assert "Privacy Policy for Budget Constraint Validator" in privacy_body
+        required_privacy_markers = [
+            "Data Collected",
+            "Tool Outputs",
+            "Purpose of Processing",
+            "Recipients and Sharing",
+            "Retention",
+            "User Controls",
+            "Login and Accounts",
+            "Read-Only Operation and No Side Effects",
+            "total_budget",
+            "allocations",
+            "is_valid",
+            "total_allocated",
+            "remaining",
+            "overflow",
+        ]
+        for marker in required_privacy_markers:
+            assert marker in privacy_body
+        assert "does not require user accounts" in privacy_body
+        assert "does not call external APIs" in privacy_body
         assert "sidcraigau@gmail.com" in privacy_body
 
         terms_status, terms_body, terms_headers = http_get("/terms")
@@ -360,6 +379,7 @@ def main():
                     "server_started": True,
                     "get_root": True,
                     "get_privacy": True,
+                    "privacy_required_markers": True,
                     "get_terms": True,
                     "get_support": True,
                     "get_health": True,
